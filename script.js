@@ -38,4 +38,24 @@ async function getAnimeName (name) {
     .catch(err =>  console.error(err))
 }
 
-getAnimeName('blue lock')
+
+async function searchAnimeDetails (name)  {
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'a9be9ca417msh02ffae03380bb1bp1b69a6jsn0f580a3248bd',
+            'X-RapidAPI-Host': 'gogoanime2.p.rapidapi.com'
+        }
+    };
+    
+    const response = await fetch(`https://gogoanime2.p.rapidapi.com/anime-details/${name}`, options);
+    return response.json()
+}
+
+
+async function getDetails(name) {
+    searchAnimeDetails(name)
+    .then(info => console.log(info))
+    .catch(err =>  console.error(err))
+}
+
