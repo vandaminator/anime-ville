@@ -26,9 +26,9 @@ async function searchAnime(name) {
 }
 
 // getting and using data
-async function getAnimeName(name) {
+export async function getAnimeName(name) {
   searchAnime(name) // getting data
-    .then((info) => console.log(info.length)) // using data
+    .then((info) => console.log(info)) // using data
     .catch((err) => console.error(err));
 }
 
