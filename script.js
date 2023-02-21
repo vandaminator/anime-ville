@@ -8,6 +8,10 @@ const OPTIONS = {
   },
 };
 
+// these are  for the search display
+const RESULTS_CONTAINER = document.querySelector(".results");
+
+// these are for the details display
 const TITLE = document.querySelector(".title");
 const IMAGE = document.querySelector(".picture");
 const SYNOPSIS = document.querySelector(".sypnosis");
@@ -27,6 +31,20 @@ async function getAnimeName(name) {
     .then((info) => console.log(info.length)) // using data
     .catch((err) => console.error(err));
 }
+
+/* 
+
+
+
+
+
+
+
+
+
+this seaction is for the anime details page
+
+*/
 
 // returns only the infomation in json format
 async function searchAnimeDetails(name) {
