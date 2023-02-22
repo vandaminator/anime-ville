@@ -8,7 +8,10 @@ const OPTIONS = {
   },
 };
 
-// these are  for the search display
+// to get the input in the search box
+const SEARCH_BAR = document.getElementById("search");
+
+// used to display results
 const RESULTS_CONTAINER = document.querySelector(".results");
 
 // these are for the details display
@@ -25,11 +28,48 @@ async function searchAnime(name) {
   return response.json();
 }
 
+/*
+
+searchAnime('naruto') exapmle
+
+[
+  {
+    "animeId": "naruto",
+    "animeTitle": "Naruto",
+    "animeUrl": "https://www1.gogoanime.cm//category/naruto",
+    "animeImg": "https://gogocdn.net/images/anime/N/naruto.jpg",
+    "status": "Released: 2002"
+  }
+]
+*/
+
 // getting and using data
-export async function getAnimeName(name) {
-  searchAnime(name) // getting data
-    .then((info) => console.log(info)) // using data
+async function getAnime() {
+  const input = SEARCH_BAR.value;
+  searchAnime(input) // getting data
+    .then((info) => setResults(info)) // using data
     .catch((err) => console.error(err));
+}
+
+async function setResults(data) {
+  const numData = data.length;
+  let item = 0;
+  for (item; item < numData; item++) {
+    const anime = data[item];
+    const animeTitle = anime.animeTitle;
+    const animeImage = anime.animeImg;
+    addResult(animeTitle, animeImage);
+  }
+}
+
+async function addResult(title, img_src) {
+  const resultItem = document.createElement("div");
+  const htmlText = `
+  <h4>${title}</h4>
+  <img src="${img_src}" alt='image' width="200">
+  `;
+  resultItem.innerHTML = htmlText;
+  RESULTS_CONTAINER.appendChild(resultItem);
 }
 
 /* 
