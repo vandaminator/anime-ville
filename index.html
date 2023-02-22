@@ -13,20 +13,24 @@
   </head>
   <body>
     <main>
-      <div class="search">
+      <section class="search hide">
         <label for="search">Search</label>
-        <input type="text" name="search" id="search" />
-        <button class="btn" onclick="getAnime('blue')">Search</button>
+        <input type="text" name="search" id="search_bar" />
+        <button class="btn" onclick="getAnime()">Search</button>
         <div class="results"></div>
-      </div>
-      <div class="details hide">
-        <button onclick="getDetails('overlord')">get details</button>
-        <p>text</p>
-        <div class="title"></div>
-        <div class="picture"></div>
-        <div class="sypnosis"></div>
+      </section>
+      <section class="details">
+        <button onclick="switchDisplays()">Back</button>
+        <div class="title">title</div>
+        <div class="picture">tings</div>
+        <div class="sypnosis">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+          unde facilis aut, sunt perspiciatis blanditiis quibusdam provident?
+          Doloremque esse quibusdam nisi aperiam illo consequatur dolorum, magni
+          illum rem est! Aliquam?
+        </div>
         <script src="./script.js"></script>
-      </div>
+      </section>
     </main>
   </body>
 </html>

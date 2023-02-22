@@ -8,11 +8,27 @@ const OPTIONS = {
   },
 };
 
+/*
+
+    THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
+
+*/
+
+const SEARCH_DISPLAY = document.querySelector(".search");
+
 // to get the input in the search box
-const SEARCH_BAR = document.getElementById("search");
+const SEARCH_BAR = document.getElementById("search_bar");
 
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".results");
+
+/*
+
+       THE CONSTANTS HERE ARE FOR THE ANIME DETAILS
+
+*/
+// used to display the details of an anime
+const DETAILS_DISPLAY = document.querySelector(".details");
 
 // these are for the details display
 const TITLE = document.querySelector(".title");
@@ -45,6 +61,7 @@ searchAnime('naruto') exapmle
 
 // getting and using data
 async function getAnime() {
+  RESULTS_CONTAINER.innerHTML = "";
   const input = SEARCH_BAR.value;
   searchAnime(input) // getting data
     .then((info) => setResults(info)) // using data
@@ -58,15 +75,17 @@ async function setResults(data) {
     const anime = data[item];
     const animeTitle = anime.animeTitle;
     const animeImage = anime.animeImg;
-    addResult(animeTitle, animeImage);
+    const animeId = anime.animeId;
+    addResult(animeTitle, animeImage, animeId);
   }
 }
 
-async function addResult(title, img_src) {
+async function addResult(title, img_src, id) {
   const resultItem = document.createElement("div");
+  resultItem.setAttribute("onclick", `showDetails('${id}')`);
   const htmlText = `
   <h4>${title}</h4>
-  <img src="${img_src}" alt='image' width="200">
+  <img src="${img_src}" alt='image' width="150">
   `;
   resultItem.innerHTML = htmlText;
   RESULTS_CONTAINER.appendChild(resultItem);
@@ -179,4 +198,27 @@ async function synopsisSet(text) {
   const synopsis = document.createElement("p");
   synopsis.innerHTML = text;
   SYNOPSIS.appendChild(synopsis);
+}
+
+/* 
+
+    FUNCTIONS HERE ARE FOR MOVING BETWEEN DISPLAYS
+
+*/
+
+function clearDetails() {
+  TITLE.innerHTML = "";
+  IMAGE.innerHTML = "";
+  SYNOPSIS.innerHTML = "";
+}
+
+function switchDisplays() {
+  SEARCH_DISPLAY.classList.toggle("hide");
+  DETAILS_DISPLAY.classList.toggle("hide");
+}
+
+async function showDetails(name) {
+  clearDetails();
+  switchDisplays();
+  getDetails(name);
 }
