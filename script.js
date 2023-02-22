@@ -8,19 +8,20 @@ const OPTIONS = {
   },
 };
 
+const MAIN_CONTAINER = document.querySelector("main");
+const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
+
 /*
 
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
 
 */
 
-const SEARCH_DISPLAY = document.querySelector(".search");
-
 // to get the input in the search box
 const SEARCH_BAR = document.getElementById("search_bar");
 
 // used to display results
-const RESULTS_CONTAINER = document.querySelector(".results");
+const RESULTS_DISPLAY = document.querySelector(".results");
 
 /*
 
@@ -34,6 +35,38 @@ const DETAILS_DISPLAY = document.querySelector(".details");
 const TITLE = document.querySelector(".title");
 const IMAGE = document.querySelector(".picture");
 const SYNOPSIS = document.querySelector(".sypnosis");
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+    THE FUNCTIONS HERE ARE FOR SHOWING NEW RELEASES OF ANIME
+
+*/
+
+async function searchNewReleases() {}
+
+/*
+
+
+
+
+
+
+
+
+
+    THESE FUNCTIONS ARE FOR SEARCHING ANIME
+
+*/
 
 //get out data
 async function searchAnime(name) {
@@ -61,7 +94,8 @@ searchAnime('naruto') exapmle
 
 // getting and using data
 async function getAnime() {
-  RESULTS_CONTAINER.innerHTML = "";
+  RESULTS_DISPLAY.innerHTML = "";
+  showScreen("results");
   const input = SEARCH_BAR.value;
   searchAnime(input) // getting data
     .then((info) => setResults(info)) // using data
@@ -88,7 +122,7 @@ async function addResult(title, img_src, id) {
   <img src="${img_src}" alt='image' width="150">
   `;
   resultItem.innerHTML = htmlText;
-  RESULTS_CONTAINER.appendChild(resultItem);
+  RESULTS_DISPLAY.appendChild(resultItem);
 }
 
 /* 
@@ -101,7 +135,7 @@ async function addResult(title, img_src, id) {
 
 
 
-this seaction is for the anime details page
+THESE FUNCTIONS ARE FOR GETTING INFORMATION ABOUT AN ANIME
 
 */
 
@@ -202,6 +236,15 @@ async function synopsisSet(text) {
 
 /* 
 
+
+
+
+
+
+
+
+
+
     FUNCTIONS HERE ARE FOR MOVING BETWEEN DISPLAYS
 
 */
@@ -213,7 +256,7 @@ function clearDetails() {
 }
 
 function switchDisplays() {
-  SEARCH_DISPLAY.classList.toggle("hide");
+  RESULTS_DISPLAY.classList.toggle("hide");
   DETAILS_DISPLAY.classList.toggle("hide");
 }
 
@@ -221,4 +264,21 @@ async function showDetails(name) {
   clearDetails();
   switchDisplays();
   getDetails(name);
+}
+
+console.log(DISPLAY_ELEMENTS);
+
+async function showScreen(display) {
+  const numDisplays = DISPLAY_ELEMENTS.length;
+  let element = 0;
+  for (element; element < numDisplays; element++) {
+    let child = DISPLAY_ELEMENTS[element];
+    let childClasses = child.classList;
+    let notResultsElement = !childClasses.contains(display);
+    if (notResultsElement) {
+      child.classList.add("hide");
+    } else {
+      child.classList.remove("hide");
+    }
+  }
 }

@@ -9,17 +9,32 @@
       .hide {
         display: none;
       }
+
+      body {
+        background-color: rgb(43, 43, 43);
+        color: aliceblue;
+      }
     </style>
   </head>
   <body>
-    <main>
-      <section class="search hide">
+    <nav>
+      <div class="search">
         <label for="search">Search</label>
         <input type="text" name="search" id="search_bar" />
         <button class="btn" onclick="getAnime()">Search</button>
-        <div class="results"></div>
-      </section>
-      <section class="details">
+      </div>
+    </nav>
+    <main>
+      <sec class="releases display">
+        <h1>New Releases</h1>
+        <div class="new"></div>
+      </sec>
+      <!-- this is to show results from the search operation -->
+      <div class="results display hide"></div>
+      <!-- this is to show the infomation for an anime -->
+      <!-- it is hidden at first with the hide class to let user search -->
+      <section class="details display hide">
+        <h2>results</h2>
         <button onclick="switchDisplays()">Back</button>
         <div class="title">title</div>
         <div class="picture">tings</div>
