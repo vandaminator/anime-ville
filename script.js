@@ -13,6 +13,15 @@ const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
 
 /*
 
+    THE CONSTANTS HERE ARE FOR NEW ANIME DISPLAY
+
+*/
+
+const RELEASE_DISPLAY = document.querySelector(".releases");
+const NEW_EPISODES_DISPLAY = document.querySelector(".new");
+
+/*
+
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
 
 */
@@ -61,6 +70,30 @@ async function searchNewReleases() {
 }
 
 /*
+[
+  {
+    "episodeId": "deep-insanity-the-lost-child-episode-9",
+    "animeTitle": "Deep Insanity: The Lost Child",
+    "episodeNum": "9",
+    "subOrDub": "SUB",
+    "animeImg": "https://cdnimg.xyz/cover/deep-insanity-the-lost-child.png",
+    "episodeUrl": "https://www1.gogoanime.cm//deep-insanity-the-lost-child-episode-9"
+  }
+]
+*/
+
+async function getNewReleases() {
+  NEW_EPISODES_DISPLAY.innerHTML = "";
+  showScreen("releases");
+  searchNewReleases()
+    .then((info) => setRelease(info))
+    .catch((err) => console.error(err));
+}
+
+// to show content
+getNewReleases();
+
+/*
 
 
 
@@ -107,7 +140,14 @@ async function getAnime() {
     .then((info) => setResults(info)) // using data
     .catch((err) => console.error(err));
 }
+/*
 
+
+
+
+    THE FUNCTIONS HERE ARE FOR RESULTS DISPLAY
+
+*/
 async function setResults(data) {
   const numData = data.length;
   let item = 0;
@@ -129,6 +169,40 @@ async function addResult(title, img_src, id) {
   `;
   resultItem.innerHTML = htmlText;
   RESULTS_DISPLAY.appendChild(resultItem);
+}
+
+/*
+
+
+
+
+    THE FUNCTIONS HERE ARE FOR RELEASE DISPLAY
+
+*/
+
+async function setRelease(data) {
+  const numData = data.length;
+  let item = 0;
+  for (item; item < numData; item++) {
+    const episode = data[item];
+    const animeTitle = episode.animeTitle;
+    const animeImage = episode.animeImg;
+    const episodeNum = episode.episodeNum;
+    const episodeUrl = episode.episodeUrl;
+    addRelease(animeTitle, animeImage, episodeNum, episodeUrl);
+  }
+}
+
+async function addRelease(title, img_src, number, url) {
+  const releaseItem = document.createElement("a");
+  releaseItem.setAttribute("href", `${url}`);
+  const htmlText = `
+  <img src="${img_src}" alt='image' width="150">
+  <h4>${title}</h4>
+  <p>${number}</p>
+  `;
+  releaseItem.innerHTML = htmlText;
+  RELEASE_DISPLAY.appendChild(releaseItem);
 }
 
 /* 
