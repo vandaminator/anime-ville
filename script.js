@@ -52,7 +52,13 @@ const SYNOPSIS = document.querySelector(".sypnosis");
 
 */
 
-async function searchNewReleases() {}
+async function searchNewReleases() {
+  const response = await fetch(
+    "https://gogoanime2.p.rapidapi.com/recent-release?type=1&page=1",
+    OPTIONS
+  );
+  return response.json();
+}
 
 /*
 
