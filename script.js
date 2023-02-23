@@ -41,9 +41,9 @@ const RESULTS_DISPLAY = document.querySelector(".results");
 const DETAILS_DISPLAY = document.querySelector(".details");
 
 // these are for the details display
-const TITLE = document.querySelector(".title");
-const IMAGE = document.querySelector(".picture");
+const INFORMATION = document.querySelector(".infomation");
 const SYNOPSIS = document.querySelector(".sypnosis");
+const GENRES = document.querySelector('.genres')
 
 /*
 
@@ -276,35 +276,56 @@ async function getDetails(name) {
     .catch((err) => setInfo(err));
 }
 
+/* 
+KEYS ARE: 
+
+animeTitle
+type
+releasedDate
+status
+genre : List[Strings]
+otherNames
+synopsis
+animeImg
+totalEpisodes
+episodesList : [
+  episodeId
+  episodeNum
+  episodeUrl
+]
+
+
+*/
+
 // takes info in json format and loads it to screen
 async function setInfo(info) {
-  titleSet(info.animeTitle);
-  imageSet(info.animeImg);
-  synopsisSet(info.synopsis);
+  const { animeTitle, animetype , releaseDate , status , genre, otherNames, synopsis, animeImg, totalEpisodes, episodeList } = info;
+  const infoArray = [animeTitle, animetype , releaseDate , status ,otherNames,animeImg, totalEpisodes]
+  informationSet(infoArray);
+  synopsisSet(synopsis);
 }
 
 /* 
 the functions here make up setInfo function
 
 1. titleSet
-2. imageSet
-3. synopsisSet
+2. synopsisSet
 */
 
-async function titleSet(title) {
-  TITLE.innerHTML = "";
-  const header = document.createElement("h1");
-  header.innerHTML = title;
-  TITLE.appendChild(header);
-}
+async function informationSet(infoArray) {
+  INFORMATION.innerHTML = "";
+  const [animeTitle, animetype , releaseDate , status ,otherNames,animeImg, totalEpisodes] = infoArray;
+  INFORMATION.innerHTML = `
+  
+  <h1> ${animeTitle} </h1>
+  <p> Othernames: ${otherNames} </p>
+  <p> AnimeType: ${animetype} </p>
+  <p> Release date: ${releaseDate} </p>
+  <p> Status: ${status} </p>
+  <img src='${animeImg}' alt='image' />
+  <p> Total episodes: ${totalEpisodes} </p>
 
-async function imageSet(src) {
-  IMAGE.innerHTML = "";
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "anime";
-  img.width = 200;
-  IMAGE.appendChild(img);
+  `
 }
 
 async function synopsisSet(text) {
@@ -330,8 +351,7 @@ async function synopsisSet(text) {
 */
 
 function clearDetails() {
-  TITLE.innerHTML = "";
-  IMAGE.innerHTML = "";
+  INFORMATION.innerHTML = "";
   SYNOPSIS.innerHTML = "";
 }
 
@@ -346,7 +366,6 @@ async function showDetails(name) {
   getDetails(name);
 }
 
-console.log(DISPLAY_ELEMENTS);
 
 async function showScreen(display) {
   const numDisplays = DISPLAY_ELEMENTS.length;
