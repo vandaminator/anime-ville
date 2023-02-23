@@ -302,6 +302,7 @@ async function setInfo(info) {
   const { animeTitle, animetype , releaseDate , status , genre, otherNames, synopsis, animeImg, totalEpisodes, episodeList } = info;
   const infoArray = [animeTitle, animetype , releaseDate , status ,otherNames,animeImg, totalEpisodes]
   informationSet(infoArray);
+  genreSet(genre)
   synopsisSet(synopsis);
 }
 
@@ -326,6 +327,20 @@ async function informationSet(infoArray) {
   <p> Total episodes: ${totalEpisodes} </p>
 
   `
+}
+
+async function genreSet(genre) {
+  GENRES.innerHTML = '';
+  let genreElementsText = '';
+  genre.forEach(element => {
+    genreElementsText += `
+    \n <div>
+      <p> ${element} </p>
+    </div>
+    `
+GENRES.innerHTML = genreElementsText + '\n'
+  });
+
 }
 
 async function synopsisSet(text) {
