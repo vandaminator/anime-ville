@@ -43,7 +43,8 @@ const DETAILS_DISPLAY = document.querySelector(".details");
 // these are for the details display
 const INFORMATION = document.querySelector(".infomation");
 const SYNOPSIS = document.querySelector(".sypnosis");
-const GENRES = document.querySelector('.genres')
+const GENRES = document.querySelector(".genres");
+const EPISODES = document.querySelector(".episodes");
 
 /*
 
@@ -299,11 +300,32 @@ episodesList : [
 
 // takes info in json format and loads it to screen
 async function setInfo(info) {
-  const { animeTitle, animetype , releaseDate , status , genre, otherNames, synopsis, animeImg, totalEpisodes, episodeList } = info;
-  const infoArray = [animeTitle, animetype , releaseDate , status ,otherNames,animeImg, totalEpisodes]
+  const {
+    animeTitle,
+    animetype,
+    releaseDate,
+    status,
+    genre,
+    otherNames,
+    synopsis,
+    animeImg,
+    totalEpisodes,
+    episodeList,
+  } = info;
+
+  const infoArray = [
+    animeTitle,
+    animetype,
+    releaseDate,
+    status,
+    otherNames,
+    animeImg,
+    totalEpisodes,
+  ];
   informationSet(infoArray);
-  genreSet(genre)
+  genreSet(genre);
   synopsisSet(synopsis);
+  episodeSet(episodeList);
 }
 
 /* 
@@ -315,7 +337,17 @@ the functions here make up setInfo function
 
 async function informationSet(infoArray) {
   INFORMATION.innerHTML = "";
-  const [animeTitle, animetype , releaseDate , status ,otherNames,animeImg, totalEpisodes] = infoArray;
+
+  const [
+    animeTitle,
+    animetype,
+    releaseDate,
+    status,
+    otherNames,
+    animeImg,
+    totalEpisodes,
+  ] = infoArray;
+
   INFORMATION.innerHTML = `
   
   <h1> ${animeTitle} </h1>
@@ -326,28 +358,48 @@ async function informationSet(infoArray) {
   <img src='${animeImg}' alt='image' />
   <p> Total episodes: ${totalEpisodes} </p>
 
-  `
+  `;
 }
 
 async function genreSet(genre) {
-  GENRES.innerHTML = '';
-  let genreElementsText = '';
-  genre.forEach(element => {
+  GENRES.innerHTML = "";
+
+  let genreElementsText = "";
+
+  genre.forEach((element) => {
     genreElementsText += `
     \n <div>
       <p> ${element} </p>
     </div>
-    `
-GENRES.innerHTML = genreElementsText + '\n'
-  });
+    `;
 
+    GENRES.innerHTML = genreElementsText + "\n";
+  });
 }
 
 async function synopsisSet(text) {
   SYNOPSIS.innerHTML = "";
+
   const synopsis = document.createElement("p");
   synopsis.innerHTML = text;
+
   SYNOPSIS.appendChild(synopsis);
+}
+
+async function episodeSet(episodeList) {
+  EPISODES.innerHTML = "";
+  const episodeElementsText = "";
+
+  episodeList.forEach((element) => {
+    const { episodeNum, episodeUrl } = element;
+    episodeElementsText += `\n <div>
+      <a href="${episodeUrl}" >
+        ${episodeNum}
+      </a>
+    </div>`;
+  });
+
+  EPISODES.innerHTML = episodeElementsText + "\n";
 }
 
 /* 
@@ -368,6 +420,8 @@ async function synopsisSet(text) {
 function clearDetails() {
   INFORMATION.innerHTML = "";
   SYNOPSIS.innerHTML = "";
+  GENRES.innerHTML = "";
+  EPISODES.innerHTML = "";
 }
 
 function switchDisplays() {
@@ -380,7 +434,6 @@ async function showDetails(name) {
   switchDisplays();
   getDetails(name);
 }
-
 
 async function showScreen(display) {
   const numDisplays = DISPLAY_ELEMENTS.length;
