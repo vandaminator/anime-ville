@@ -302,30 +302,32 @@ episodesList : [
 async function setInfo(info) {
   const {
     animeTitle,
-    animetype,
-    releaseDate,
+    type,
+    releasedDate,
     status,
-    genre,
+    genres,
     otherNames,
     synopsis,
     animeImg,
     totalEpisodes,
-    episodeList,
+    episodesList,
   } = info;
+
+  console.log(info);
 
   const infoArray = [
     animeTitle,
-    animetype,
-    releaseDate,
+    type,
+    releasedDate,
     status,
     otherNames,
     animeImg,
     totalEpisodes,
   ];
   informationSet(infoArray);
-  genreSet(genre);
+  genreSet(genres);
   synopsisSet(synopsis);
-  episodeSet(episodeList);
+  episodeSet(episodesList);
 }
 
 /* 
@@ -388,7 +390,7 @@ async function synopsisSet(text) {
 
 async function episodeSet(episodeList) {
   EPISODES.innerHTML = "";
-  const episodeElementsText = "";
+  let episodeElementsText = "";
 
   episodeList.forEach((element) => {
     const { episodeNum, episodeUrl } = element;
