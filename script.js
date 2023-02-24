@@ -8,18 +8,20 @@ const OPTIONS = {
   },
 };
 
-
 /*
 
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
 
 */
+const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
 
 // to get the input in the search box
-const SEARCH_BAR = document.getElementById("search_bar");
+const SEARCH_BAR = document.querySelector("#searchbar");
+const SEARCH_BTN = document.querySelector("#search-btn");
 
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".show-results");
+const RESULTS_DISPLAY = document.querySelector(".results");
 
 /*
 
@@ -27,9 +29,11 @@ const RESULTS_CONTAINER = document.querySelector(".show-results");
 
 */
 
+const DETAILS_DISPLAY = document.querySelector(".details");
+
 // these are for the details display
-const INFORMATION = document.querySelector(".infomation");
-const SYNOPSIS = document.querySelector(".sypnosis");
+const INFORMATION = document.querySelector(".information");
+const SYNOPSIS = document.querySelector(".synopsis");
 const GENRES = document.querySelector(".genres");
 const EPISODES = document.querySelector(".episodes");
 
@@ -110,8 +114,6 @@ async function addResult(title, img_src, id) {
   resultItem.innerHTML = htmlText;
   RESULTS_CONTAINER.appendChild(resultItem);
 }
-
-
 
 /* 
 
@@ -220,8 +222,6 @@ async function setInfo(info) {
     episodesList,
   } = info;
 
-  console.log(info);
-
   const infoArray = [
     animeTitle,
     type,
@@ -311,4 +311,50 @@ async function episodeSet(episodeList) {
   EPISODES.innerHTML = episodeElementsText + "\n";
 }
 
+/* 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      FUNCTIONS HERE ARE FOR MOVING BETWEEN DISPLAYS
+  
+  */
 
+function clearDetails() {
+  INFORMATION.innerHTML = "";
+  SYNOPSIS.innerHTML = "";
+  GENRES.innerHTML = "";
+  EPISODES.innerHTML = "";
+}
+
+function switchDisplays() {
+  RESULTS_DISPLAY.classList.toggle("hide");
+  DETAILS_DISPLAY.classList.toggle("hide");
+}
+
+async function showDetails(name) {
+  clearDetails();
+  switchDisplays();
+  getDetails(name);
+}
+
+async function showScreen(display) {
+  const numDisplays = DISPLAY_ELEMENTS.length;
+  let element = 0;
+  for (element; element < numDisplays; element++) {
+    let child = DISPLAY_ELEMENTS[element];
+    let childClasses = child.classList;
+    let notResultsElement = !childClasses.contains(display);
+    if (notResultsElement) {
+      child.classList.add("hide");
+    } else {
+      child.classList.remove("hide");
+    }
+  }
+}

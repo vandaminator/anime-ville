@@ -11,30 +11,32 @@
       }
 
       body {
-        background-color: rgb(43, 43, 43);
-        color: aliceblue;
+        background-color: #2b2b2b;
+        color: #f0f8ff;
       }
     </style>
   </head>
   <body>
     <nav>
-        <h1>AnimeVile</h1>
-        <div class="search">
-            <input type="text" id="searchbar">
-            <button class="get">search</button>
-        </div>
+      <h1>AnimeVile</h1>
+      <div class="search">
+        <input type="text" id="searchbar" />
+        <button class="get" id="search-btn" onclick="getAnime()">search</button>
+      </div>
     </nav>
     <main>
-        <section class="results">
-            <h2 class="results-title">Found this</h2>
-            <div class="show-results"></div>
-        </section>
-        <section class="details">
-            <div class="information"></div>
-            <div class="genres"></div>
-            <div class="synopsis"></div>
-            <div class="episodes"></div>
-        </section>
+      <section class="results display">
+        <h2 class="results-title">Found thi</h2>
+        <div class="show-results"></div>
+      </section>
+      <section class="details display hide">
+        <h2>info</h2>
+        <div class="information"></div>
+        <div class="genres"></div>
+        <div class="synopsis"></div>
+        <div class="episodes"></div>
+      </section>
     </main>
+    <script src="./script.js"></script>
   </body>
 </html>
