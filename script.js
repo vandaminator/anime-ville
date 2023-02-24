@@ -358,3 +358,10 @@ async function showScreen(display) {
     }
   }
 }
+
+function check(event) {
+  const key = event.key;
+  if (key === "Enter") {
+    getAnime();
+  }
+}
