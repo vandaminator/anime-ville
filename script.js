@@ -8,17 +8,6 @@ const OPTIONS = {
   },
 };
 
-const MAIN_CONTAINER = document.querySelector("main");
-const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
-
-/*
-
-    THE CONSTANTS HERE ARE FOR NEW ANIME DISPLAY
-
-*/
-
-const RELEASE_DISPLAY = document.querySelector(".releases");
-const NEW_EPISODES_DISPLAY = document.querySelector(".new");
 
 /*
 
@@ -30,69 +19,19 @@ const NEW_EPISODES_DISPLAY = document.querySelector(".new");
 const SEARCH_BAR = document.getElementById("search_bar");
 
 // used to display results
-const RESULTS_DISPLAY = document.querySelector(".results");
+const RESULTS_CONTAINER = document.querySelector(".show-results");
 
 /*
 
        THE CONSTANTS HERE ARE FOR THE ANIME DETAILS
 
 */
-// used to display the details of an anime
-const DETAILS_DISPLAY = document.querySelector(".details");
 
 // these are for the details display
 const INFORMATION = document.querySelector(".infomation");
 const SYNOPSIS = document.querySelector(".sypnosis");
 const GENRES = document.querySelector(".genres");
 const EPISODES = document.querySelector(".episodes");
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-    THE FUNCTIONS HERE ARE FOR SHOWING NEW RELEASES OF ANIME
-
-*/
-
-async function searchNewReleases() {
-  const response = await fetch(
-    "https://gogoanime2.p.rapidapi.com/recent-release?type=1&page=1",
-    OPTIONS
-  );
-  return response.json();
-}
-
-/*
-[
-  {
-    "episodeId": "deep-insanity-the-lost-child-episode-9",
-    "animeTitle": "Deep Insanity: The Lost Child",
-    "episodeNum": "9",
-    "subOrDub": "SUB",
-    "animeImg": "https://cdnimg.xyz/cover/deep-insanity-the-lost-child.png",
-    "episodeUrl": "https://www1.gogoanime.cm//deep-insanity-the-lost-child-episode-9"
-  }
-]
-*/
-
-async function getNewReleases() {
-  NEW_EPISODES_DISPLAY.innerHTML = "";
-  showScreen("releases");
-  searchNewReleases()
-    .then((info) => setRelease(info))
-    .catch((err) => console.error(err));
-}
-
-// to show content
-getNewReleases();
 
 /*
 
@@ -134,7 +73,7 @@ searchAnime('naruto') exapmle
 
 // getting and using data
 async function getAnime() {
-  RESULTS_DISPLAY.innerHTML = "";
+  RESULTS_CONTAINER.innerHTML = "";
   showScreen("results");
   const input = SEARCH_BAR.value;
   searchAnime(input) // getting data
@@ -169,42 +108,10 @@ async function addResult(title, img_src, id) {
   <img src="${img_src}" alt='image' width="150">
   `;
   resultItem.innerHTML = htmlText;
-  RESULTS_DISPLAY.appendChild(resultItem);
+  RESULTS_CONTAINER.appendChild(resultItem);
 }
 
-/*
 
-
-
-
-    THE FUNCTIONS HERE ARE FOR RELEASE DISPLAY
-
-*/
-
-async function setRelease(data) {
-  const numData = data.length;
-  let item = 0;
-  for (item; item < numData; item++) {
-    const episode = data[item];
-    const animeTitle = episode.animeTitle;
-    const animeImage = episode.animeImg;
-    const episodeNum = episode.episodeNum;
-    const episodeUrl = episode.episodeUrl;
-    addRelease(animeTitle, animeImage, episodeNum, episodeUrl);
-  }
-}
-
-async function addRelease(title, img_src, number, url) {
-  const releaseItem = document.createElement("a");
-  releaseItem.setAttribute("href", `${url}`);
-  const htmlText = `
-  <img src="${img_src}" alt='image' width="150">
-  <h4>${title}</h4>
-  <p>${number}</p>
-  `;
-  releaseItem.innerHTML = htmlText;
-  RELEASE_DISPLAY.appendChild(releaseItem);
-}
 
 /* 
 
@@ -404,50 +311,4 @@ async function episodeSet(episodeList) {
   EPISODES.innerHTML = episodeElementsText + "\n";
 }
 
-/* 
 
-
-
-
-
-
-
-
-
-
-    FUNCTIONS HERE ARE FOR MOVING BETWEEN DISPLAYS
-
-*/
-
-function clearDetails() {
-  INFORMATION.innerHTML = "";
-  SYNOPSIS.innerHTML = "";
-  GENRES.innerHTML = "";
-  EPISODES.innerHTML = "";
-}
-
-function switchDisplays() {
-  RESULTS_DISPLAY.classList.toggle("hide");
-  DETAILS_DISPLAY.classList.toggle("hide");
-}
-
-async function showDetails(name) {
-  clearDetails();
-  switchDisplays();
-  getDetails(name);
-}
-
-async function showScreen(display) {
-  const numDisplays = DISPLAY_ELEMENTS.length;
-  let element = 0;
-  for (element; element < numDisplays; element++) {
-    let child = DISPLAY_ELEMENTS[element];
-    let childClasses = child.classList;
-    let notResultsElement = !childClasses.contains(display);
-    if (notResultsElement) {
-      child.classList.add("hide");
-    } else {
-      child.classList.remove("hide");
-    }
-  }
-}
