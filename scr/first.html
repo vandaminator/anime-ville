@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnimeVille</title>
+    <style>
+      .hide {
+        display: none;
+      }
+
+      body {
+        background-color: rgb(43, 43, 43);
+        color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <button onclick="showScreen('releases')" class="home">home</button>
+      <div class="search">
+        <label for="search">Search</label>
+        <input type="text" name="search" id="search_bar" />
+        <button class="btn" onclick="getAnime()">Search</button>
+      </div>
+    </nav>
+    <main>
+      <sec class="releases display">
+        <h1>New Releases</h1>
+        <div class="new"></div>
+      </sec>
+      <!-- this is to show results from the search operation -->
+      <div class="results display hide"></div>
+      <!-- this is to show the infomation for an anime -->
+      <!-- it is hidden at first with the hide class to let user search -->
+      <section class="details display hide">
+        <h2>results</h2>
+        <button onclick="switchDisplays()">Back</button>
+        <div class="infomation">title</div>
+        <div class="genres"></div>
+        <div class="sypnosis">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+          unde facilis aut, sunt perspiciatis blanditiis quibusdam provident?
+          Doloremque esse quibusdam nisi aperiam illo consequatur dolorum, magni
+          illum rem est! Aliquam?
+        </div>
+        <div class="episodes"></div>
+        <script src="./script.js"></script>
+      </section>
+    </main>
+  </body>
+</html>
