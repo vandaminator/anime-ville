@@ -1,13 +1,5 @@
 // options is used with the fetch of each function
 
-const OPTIONS = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "a9be9ca417msh02ffae03380bb1bp1b69a6jsn0f580a3248bd",
-    "X-RapidAPI-Host": "gogoanime2.p.rapidapi.com",
-  },
-};
-
 /*
 
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
@@ -55,8 +47,7 @@ const EPISODES = document.querySelector(".episodes");
 async function searchAnime(name, page) {
   const response = await fetch(
     `https://api.consumet.org/anime/gogoanime/${name}?page=${page}
-    `,
-    OPTIONS
+    `
   );
   return response.json();
 }
@@ -129,79 +120,18 @@ THESE FUNCTIONS ARE FOR GETTING INFORMATION ABOUT AN ANIME
 */
 
 // returns only the infomation in json format
-async function searchAnimeDetails(name) {
+async function searchAnimeDetails(id) {
   const response = await fetch(
-    `https://gogoanime2.p.rapidapi.com/anime-details/${name}`,
-    OPTIONS
+    `https://api.consumet.org/anime/gogoanime/info/${id}`
   );
   return response.json();
 }
 
 /* 
 
-searchAnimeDetails('overlord-iv') return example
+searchAnimeDetails('blue-lock') return example
 
-{
-  "animeTitle": "Overlord IV",
-  "type": "Summer 2022 Anime",
-  "releasedDate": "2022",
-  "status": "Completed",
-  "genres": [
-    "Action",
-    "Fantasy",
-    "Game",
-    "Magic",
-    "Supernatural"
-  ],
-  "otherNames": "オーバーロード IV",
-  "synopsis": "Fourth season of Overlord.",
-  "animeImg": "https://gogocdn.net/cover/overlord-iv.png",
-  "totalEpisodes": "13",
-  "episodesList": [
-    {
-      "episodeId": "overlord-iv-episode-3",
-      "episodeNum": "3",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-3"
-    },
-    {
-      "episodeId": "overlord-iv-episode-2",
-      "episodeNum": "2",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-2"
-    },
-    {
-      "episodeId": "overlord-iv-episode-1",
-      "episodeNum": "1",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-1"
-    }
-  ]
-}
-
-*/
-
-// using data from function here
-async function getDetails(name) {
-  searchAnimeDetails(name)
-    .then((details) => setInfo(details)) // load information on to screen
-    .catch((err) => setInfo(err));
-}
-
-/* 
-KEYS ARE: 
-
-animeTitle
-type
-releasedDate
-status
-genre : List[Strings]
-otherNames
-synopsis
-animeImg
-totalEpisodes
-episodesList : [
-  episodeId
-  episodeNum
-  episodeUrl
-]
+see example in details folder
 
 
 */
@@ -209,31 +139,31 @@ episodesList : [
 // takes info in json format and loads it to screen
 async function setInfo(info) {
   const {
-    animeTitle,
+    title,
     type,
     releasedDate,
     status,
     genres,
     otherNames,
-    synopsis,
-    animeImg,
+    description,
+    image,
     totalEpisodes,
-    episodesList,
+    episodes,
   } = info;
 
   const infoArray = [
-    animeTitle,
+    title,
     type,
     releasedDate,
     status,
     otherNames,
-    animeImg,
+    image,
     totalEpisodes,
   ];
   informationSet(infoArray);
   genreSet(genres);
-  synopsisSet(synopsis);
-  episodeSet(episodesList);
+  synopsisSet(description);
+  episodeSet(episodes);
 }
 
 /* 
@@ -247,23 +177,23 @@ async function informationSet(infoArray) {
   INFORMATION.innerHTML = "";
 
   const [
-    animeTitle,
+    title,
     animetype,
     releaseDate,
     status,
     otherNames,
-    animeImg,
+    image,
     totalEpisodes,
   ] = infoArray;
 
   INFORMATION.innerHTML = `
   
-  <h1> ${animeTitle} </h1>
+  <h1> ${title} </h1>
   <p> Othernames: ${otherNames} </p>
   <p> AnimeType: ${animetype} </p>
   <p> Release date: ${releaseDate} </p>
   <p> Status: ${status} </p>
-  <img src='${animeImg}' alt='image' />
+  <img src='${image}' alt='image' />
   <p> Total episodes: ${totalEpisodes} </p>
 
   `;
@@ -299,10 +229,10 @@ async function episodeSet(episodeList) {
   let episodeElementsText = "";
 
   episodeList.forEach((element) => {
-    const { episodeNum, episodeUrl } = element;
+    const { number, url } = element;
     episodeElementsText += `\n <div>
-      <a href="${episodeUrl}" >
-        ${episodeNum}
+      <a href="${url}" >
+        ${number}
       </a>
     </div>`;
   });
