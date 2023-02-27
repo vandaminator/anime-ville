@@ -52,9 +52,10 @@ const EPISODES = document.querySelector(".episodes");
 */
 
 //get out data
-async function searchAnime(name) {
+async function searchAnime(name, page) {
   const response = await fetch(
-    `https://gogoanime2.p.rapidapi.com/search?keyw=${name}`,
+    `https://api.consumet.org/anime/gogoanime/${name}?page=${page}
+    `,
     OPTIONS
   );
   return response.json();
@@ -62,17 +63,10 @@ async function searchAnime(name) {
 
 /*
 
-searchAnime('naruto') exapmle
+searchAnime('naruto', 1) exapmle
 
-[
-  {
-    "animeId": "naruto",
-    "animeTitle": "Naruto",
-    "animeUrl": "https://www1.gogoanime.cm//category/naruto",
-    "animeImg": "https://gogocdn.net/images/anime/N/naruto.jpg",
-    "status": "Released: 2002"
-  }
-]
+see examples_output.json
+
 */
 
 // getting and using data

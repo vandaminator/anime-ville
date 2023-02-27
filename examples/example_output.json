@@ -1,0 +1,167 @@
+{
+    "currentPage": "1",
+    "hasNextPage": true,
+    "results": [
+      {
+        "id": "naruto",
+        "title": "Naruto",
+        "url": "https://www.gogoanime.dk//category/naruto",
+        "image": "https://gogocdn.net/images/anime/N/naruto.jpg",
+        "releaseDate": "Released: 2002",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-dub",
+        "title": "Naruto (Dub)",
+        "url": "https://www.gogoanime.dk//category/naruto-dub",
+        "image": "https://gogocdn.net/cover/naruto-dub.png",
+        "releaseDate": "Released: 2002",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "naruto-shippuden",
+        "title": "Naruto Shippuden",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuden",
+        "image": "https://gogocdn.net/images/anime/naruto_shippuden.jpg",
+        "releaseDate": "Released: 2007",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-dub",
+        "title": "Naruto Shippuden (Dub)",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-dub",
+        "image": "https://gogocdn.net/cover/naruto-shippuuden-dub.png",
+        "releaseDate": "Released: 2007",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "boruto-naruto-the-movie",
+        "title": "Boruto: Naruto the Movie",
+        "url": "https://www.gogoanime.dk//category/boruto-naruto-the-movie",
+        "image": "https://gogocdn.net/images/upload/175815.jpg",
+        "releaseDate": "Released: 2015",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-1",
+        "title": "Naruto Shippuden Movie 1",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-1",
+        "image": "https://gogocdn.net/images/anime/N/Naruto-Shippuuden-Movie-1.jpg",
+        "releaseDate": "Released: 2007",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "boruto-naruto-the-movie-dub",
+        "title": "Boruto: Naruto the Movie (Dub)",
+        "url": "https://www.gogoanime.dk//category/boruto-naruto-the-movie-dub",
+        "image": "https://gogocdn.net/cover/boruto-naruto-the-movie-dub.png",
+        "releaseDate": "Released: 2015",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "boruto-naruto-next-generations",
+        "title": "Boruto: Naruto Next Generations",
+        "url": "https://www.gogoanime.dk//category/boruto-naruto-next-generations",
+        "image": "https://gogocdn.net/cover/boruto-naruto-next-generations.png",
+        "releaseDate": "Released: 2017",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-1-dub",
+        "title": "Naruto: Shippuuden Movie 1 (Dub)",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-1-dub",
+        "image": "https://gogocdn.net/cover/naruto-shippuuden-movie-1-dub.png",
+        "releaseDate": "Released: 2007",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "naruto-shippuden-movie-5-special",
+        "title": "Naruto Shippuden Movie 5 Special",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuden-movie-5-special",
+        "image": "https://gogocdn.net/images/004.jpg",
+        "releaseDate": "Released: 2011",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "the-last-naruto-the-movie-dub",
+        "title": "The Last: Naruto the Movie (Dub)",
+        "url": "https://www.gogoanime.dk//category/the-last-naruto-the-movie-dub",
+        "image": "https://gogocdn.net/cover/the-last-naruto-the-movie-dub.png",
+        "releaseDate": "Released: 2014",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-2-kizuna",
+        "title": "Naruto Shippuden Movie 2: Kizuna",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-2-kizuna",
+        "image": "https://gogocdn.net/images/anime/N/Naruto-Shippuuden-Movie-2.jpg",
+        "releaseDate": "Released: 2008",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-7-the-last",
+        "title": "Naruto Shippuden Movie 7: The Last",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-7-the-last",
+        "image": "https://gogocdn.net/images/upload/67631.jpg",
+        "releaseDate": "Released: 2014",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-sunny-side-battle",
+        "title": "Naruto Shippuden: Sunny Side Battle",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-sunny-side-battle",
+        "image": "https://gogocdn.net/images/Naruto Shippuuden.jpg",
+        "releaseDate": "Released: 2013",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "boruto-naruto-next-generations-dub",
+        "title": "Boruto: Naruto Next Generations (Dub)",
+        "url": "https://www.gogoanime.dk//category/boruto-naruto-next-generations-dub",
+        "image": "https://gogocdn.net/cover/boruto-naruto-next-generations-dub.png",
+        "releaseDate": "Released: 2018",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-5-blood-prison",
+        "title": "Naruto Shippuden Movie 5: Blood Prison",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-5-blood-prison",
+        "image": "https://gogocdn.net/images/anime/N/Naruto-Shippuuden-Movie-5.jpg",
+        "releaseDate": "Released: 2011",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-6-road-to-ninja",
+        "title": "Naruto Shippuden Movie 6: Road to Ninja",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-6-road-to-ninja",
+        "image": "https://gogocdn.net/images/anime/N/Naruto-Shippuuden-Movie-6.jpg",
+        "releaseDate": "Released: 2012",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-4-the-lost-tower",
+        "title": "Naruto Shippuden Movie 4: The Lost Tower",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-4-the-lost-tower",
+        "image": "https://gogocdn.net/images/anime/N/Naruto-Shippuuden-Movie-4.jpg",
+        "releaseDate": "Released: 2010",
+        "subOrDub": "sub"
+      },
+      {
+        "id": "naruto-shippuuden-movie-2-kizuna-dub",
+        "title": "Naruto: Shippuuden Movie 2 - Kizuna (Dub)",
+        "url": "https://www.gogoanime.dk//category/naruto-shippuuden-movie-2-kizuna-dub",
+        "image": "https://gogocdn.net/cover/naruto-shippuuden-movie-2-kizuna-dub.png",
+        "releaseDate": "Released: 2008",
+        "subOrDub": "dub"
+      },
+      {
+        "id": "naruto-akaki-yotsuba-no-clover-wo-sagase",
+        "title": "Naruto: Akaki Yotsuba no Clover wo Sagase",
+        "url": "https://www.gogoanime.dk//category/naruto-akaki-yotsuba-no-clover-wo-sagase",
+        "image": "https://gogocdn.net/cover/naruto-akaki-yotsuba-no-clover-wo-sagase.png",
+        "releaseDate": "Released: 2003",
+        "subOrDub": "sub"
+      }
+    ]
+  }
+  
