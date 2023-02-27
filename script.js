@@ -67,6 +67,10 @@ searchAnime('naruto', 1) exapmle
 
 see examples_output.json
 
+searchAnime('naruto', 2) exapmle
+
+see examples_output2.json
+
 */
 
 // getting and using data
@@ -87,13 +91,14 @@ async function getAnime() {
 
 */
 async function setResults(data) {
-  const numData = data.length;
+  const results = data.results;
+  const numData = results.length;
   let item = 0;
   for (item; item < numData; item++) {
-    const anime = data[item];
-    const animeTitle = anime.animeTitle;
-    const animeImage = anime.animeImg;
-    const animeId = anime.animeId;
+    const anime = data.results[item];
+    const animeTitle = anime.title;
+    const animeImage = anime.image;
+    const animeId = anime.id;
     addResult(animeTitle, animeImage, animeId);
   }
 }
