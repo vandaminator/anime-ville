@@ -65,13 +65,17 @@ see examples_output2.json
 */
 
 // getting and using data
-async function getAnime() {
+async function getAnime(page) {
   RESULTS_CONTAINER.innerHTML = "";
   showScreen("results");
   const input = SEARCH_BAR.value;
-  searchAnime(input) // getting data
+  searchAnime(input, page) // getting data
     .then((info) => setResults(info)) // using data
     .catch((err) => console.error(err));
+}
+
+function searchBtn() {
+  getAnime(1);
 }
 /*
 
