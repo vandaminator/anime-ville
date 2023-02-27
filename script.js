@@ -14,6 +14,7 @@ const SEARCH_BTN = document.querySelector("#search-btn");
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".show-results");
 const RESULTS_DISPLAY = document.querySelector(".results");
+const RESULTS_PAGES = document.querySelector(".result-pages");
 
 /*
 
@@ -242,6 +243,25 @@ async function episodeSet(episodeList) {
   });
 
   EPISODES.innerHTML = episodeElementsText + "\n";
+}
+
+function setPage(number) {
+  RESULTS_PAGES.innerHTML += `\n 
+  <button onclick="getAnime(${page})" > ${page} </button> 
+  `;
+}
+
+async function getPageResults(name) {
+  let nextPage = true;
+  while (nextPage === true) {
+    searchAnime(name).then((info) => {
+      if (info.hasNextPage === true) {
+        setPage(info.currentPage);
+      } else {
+        nextPage = false;
+      }
+    });
+  }
 }
 
 /* 
