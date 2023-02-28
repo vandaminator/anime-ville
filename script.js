@@ -141,15 +141,21 @@ see example in details folder
 
 */
 
+async function getDetails(name) {
+  searchAnimeDetails(name)
+    .then((info) => setInfo(info))
+    .catch((error) => console.log(error));
+}
+
 // takes info in json format and loads it to screen
 async function setInfo(info) {
   const {
     title,
     type,
-    releasedDate,
+    releaseDate,
     status,
     genres,
-    otherNames,
+    otherName,
     description,
     image,
     totalEpisodes,
@@ -159,9 +165,9 @@ async function setInfo(info) {
   const infoArray = [
     title,
     type,
-    releasedDate,
+    releaseDate,
     status,
-    otherNames,
+    otherName,
     image,
     totalEpisodes,
   ];
@@ -186,7 +192,7 @@ async function informationSet(infoArray) {
     animetype,
     releaseDate,
     status,
-    otherNames,
+    otherName,
     image,
     totalEpisodes,
   ] = infoArray;
@@ -194,7 +200,7 @@ async function informationSet(infoArray) {
   INFORMATION.innerHTML = `
   
   <h1> ${title} </h1>
-  <p> Othernames: ${otherNames} </p>
+  <p> Othernames: ${otherName} </p>
   <p> AnimeType: ${animetype} </p>
   <p> Release date: ${releaseDate} </p>
   <p> Status: ${status} </p>
