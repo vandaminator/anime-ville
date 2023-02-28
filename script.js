@@ -1,13 +1,5 @@
 // options is used with the fetch of each function
 
-const OPTIONS = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "a9be9ca417msh02ffae03380bb1bp1b69a6jsn0f580a3248bd",
-    "X-RapidAPI-Host": "gogoanime2.p.rapidapi.com",
-  },
-};
-
 /*
 
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
@@ -22,6 +14,7 @@ const SEARCH_BTN = document.querySelector("#search-btn");
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".show-results");
 const RESULTS_DISPLAY = document.querySelector(".results");
+const RESULTS_PAGES = document.querySelector(".result-pages");
 
 /*
 
@@ -52,37 +45,38 @@ const EPISODES = document.querySelector(".episodes");
 */
 
 //get out data
-async function searchAnime(name) {
+async function searchAnime(name, page) {
   const response = await fetch(
-    `https://gogoanime2.p.rapidapi.com/search?keyw=${name}`,
-    OPTIONS
+    `https://api.consumet.org/anime/gogoanime/${name}?page=${page}
+    `
   );
   return response.json();
 }
 
 /*
 
-searchAnime('naruto') exapmle
+searchAnime('naruto', 1) exapmle
 
-[
-  {
-    "animeId": "naruto",
-    "animeTitle": "Naruto",
-    "animeUrl": "https://www1.gogoanime.cm//category/naruto",
-    "animeImg": "https://gogocdn.net/images/anime/N/naruto.jpg",
-    "status": "Released: 2002"
-  }
-]
+see examples_output.json
+
+searchAnime('naruto', 2) exapmle
+
+see examples_output2.json
+
 */
 
 // getting and using data
-async function getAnime() {
+async function getAnime(page) {
   RESULTS_CONTAINER.innerHTML = "";
   showScreen("results");
   const input = SEARCH_BAR.value;
-  searchAnime(input) // getting data
+  searchAnime(input, page) // getting data
     .then((info) => setResults(info)) // using data
     .catch((err) => console.error(err));
+}
+
+function searchBtn() {
+  getAnime(1);
 }
 /*
 
@@ -93,13 +87,14 @@ async function getAnime() {
 
 */
 async function setResults(data) {
-  const numData = data.length;
+  const results = data.results;
+  const numData = results.length;
   let item = 0;
   for (item; item < numData; item++) {
-    const anime = data[item];
-    const animeTitle = anime.animeTitle;
-    const animeImage = anime.animeImg;
-    const animeId = anime.animeId;
+    const anime = data.results[item];
+    const animeTitle = anime.title;
+    const animeImage = anime.image;
+    const animeId = anime.id;
     addResult(animeTitle, animeImage, animeId);
   }
 }
@@ -130,111 +125,56 @@ THESE FUNCTIONS ARE FOR GETTING INFORMATION ABOUT AN ANIME
 */
 
 // returns only the infomation in json format
-async function searchAnimeDetails(name) {
+async function searchAnimeDetails(id) {
   const response = await fetch(
-    `https://gogoanime2.p.rapidapi.com/anime-details/${name}`,
-    OPTIONS
+    `https://api.consumet.org/anime/gogoanime/info/${id}`
   );
   return response.json();
 }
 
 /* 
 
-searchAnimeDetails('overlord-iv') return example
+searchAnimeDetails('blue-lock') return example
 
-{
-  "animeTitle": "Overlord IV",
-  "type": "Summer 2022 Anime",
-  "releasedDate": "2022",
-  "status": "Completed",
-  "genres": [
-    "Action",
-    "Fantasy",
-    "Game",
-    "Magic",
-    "Supernatural"
-  ],
-  "otherNames": "オーバーロード IV",
-  "synopsis": "Fourth season of Overlord.",
-  "animeImg": "https://gogocdn.net/cover/overlord-iv.png",
-  "totalEpisodes": "13",
-  "episodesList": [
-    {
-      "episodeId": "overlord-iv-episode-3",
-      "episodeNum": "3",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-3"
-    },
-    {
-      "episodeId": "overlord-iv-episode-2",
-      "episodeNum": "2",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-2"
-    },
-    {
-      "episodeId": "overlord-iv-episode-1",
-      "episodeNum": "1",
-      "episodeUrl": "https://gogoanime.film//overlord-iv-episode-1"
-    }
-  ]
-}
+see example in details folder
+
 
 */
 
-// using data from function here
 async function getDetails(name) {
   searchAnimeDetails(name)
-    .then((details) => setInfo(details)) // load information on to screen
-    .catch((err) => setInfo(err));
+    .then((info) => setInfo(info))
+    .catch((error) => console.log(error));
 }
-
-/* 
-KEYS ARE: 
-
-animeTitle
-type
-releasedDate
-status
-genre : List[Strings]
-otherNames
-synopsis
-animeImg
-totalEpisodes
-episodesList : [
-  episodeId
-  episodeNum
-  episodeUrl
-]
-
-
-*/
 
 // takes info in json format and loads it to screen
 async function setInfo(info) {
   const {
-    animeTitle,
+    title,
     type,
-    releasedDate,
+    releaseDate,
     status,
     genres,
-    otherNames,
-    synopsis,
-    animeImg,
+    otherName,
+    description,
+    image,
     totalEpisodes,
-    episodesList,
+    episodes,
   } = info;
 
   const infoArray = [
-    animeTitle,
+    title,
     type,
-    releasedDate,
+    releaseDate,
     status,
-    otherNames,
-    animeImg,
+    otherName,
+    image,
     totalEpisodes,
   ];
   informationSet(infoArray);
   genreSet(genres);
-  synopsisSet(synopsis);
-  episodeSet(episodesList);
+  synopsisSet(description);
+  episodeSet(episodes);
 }
 
 /* 
@@ -248,23 +188,23 @@ async function informationSet(infoArray) {
   INFORMATION.innerHTML = "";
 
   const [
-    animeTitle,
+    title,
     animetype,
     releaseDate,
     status,
-    otherNames,
-    animeImg,
+    otherName,
+    image,
     totalEpisodes,
   ] = infoArray;
 
   INFORMATION.innerHTML = `
   
-  <h1> ${animeTitle} </h1>
-  <p> Othernames: ${otherNames} </p>
+  <h1> ${title} </h1>
+  <p> Othernames: ${otherName} </p>
   <p> AnimeType: ${animetype} </p>
   <p> Release date: ${releaseDate} </p>
   <p> Status: ${status} </p>
-  <img src='${animeImg}' alt='image' />
+  <img src='${image}' alt='image' />
   <p> Total episodes: ${totalEpisodes} </p>
 
   `;
@@ -300,15 +240,34 @@ async function episodeSet(episodeList) {
   let episodeElementsText = "";
 
   episodeList.forEach((element) => {
-    const { episodeNum, episodeUrl } = element;
+    const { number, url } = element;
     episodeElementsText += `\n <div>
-      <a href="${episodeUrl}" >
-        ${episodeNum}
+      <a href="${url}" >
+        ${number}
       </a>
     </div>`;
   });
 
   EPISODES.innerHTML = episodeElementsText + "\n";
+}
+
+function setPage(number) {
+  RESULTS_PAGES.innerHTML += `\n 
+  <button onclick="getAnime(${page})" > ${page} </button> 
+  `;
+}
+
+async function getPageResults(name) {
+  let nextPage = true;
+  while (nextPage === true) {
+    searchAnime(name).then((info) => {
+      if (info.hasNextPage === true) {
+        setPage(info.currentPage);
+      } else {
+        nextPage = false;
+      }
+    });
+  }
 }
 
 /* 
