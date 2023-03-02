@@ -14,7 +14,7 @@ const SEARCH_BTN = document.querySelector("#search-btn");
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".show-results");
 const RESULTS_DISPLAY = document.querySelector(".results");
-const RESULTS_PAGES = document.querySelector(".result-pages");
+const PAGE_NUMBER = document.querySelector("#page-number");
 
 /*
 
@@ -68,6 +68,7 @@ see examples_output2.json
 // getting and using data
 async function getAnime(page) {
   RESULTS_CONTAINER.innerHTML = "";
+  PAGE_NUMBER.value = "1";
   showScreen("results");
   const input = SEARCH_BAR.value;
   searchAnime(input, page) // getting data
@@ -78,6 +79,28 @@ async function getAnime(page) {
 function searchBtn() {
   getAnime(1);
 }
+
+function showMore() {
+  const input = SEARCH_BAR.value;
+  const page = parseInt(PAGE_NUMBER.value);
+  PAGE_NUMBER.value = (page + 1).toString();
+  searchAnime(input, page) // getting data to add
+    .then((info) => setResults(info)) // using data
+    .catch((err) => console.error(err));
+}
+
+async function moreResults(info) {
+  const results = data.results;
+  const numData = results.length;
+  let item = 0;
+  for (item; item < numData; item++) {
+    const anime = data.results[item];
+    const animeTitle = anime.title;
+    const animeImage = anime.image;
+    const animeId = anime.id;
+  }
+}
+
 /*
 
 
@@ -251,24 +274,24 @@ async function episodeSet(episodeList) {
   EPISODES.innerHTML = episodeElementsText + "\n";
 }
 
-function setPage(number) {
-  RESULTS_PAGES.innerHTML += `\n 
-  <button onclick="getAnime(${page})" > ${page} </button> 
-  `;
-}
+// function setPage(number) {
+//   RESULTS_PAGES.innerHTML += `\n
+//   <button onclick="getAnime(${page})" > ${page} </button>
+//   `;
+// }
 
-async function getPageResults(name) {
-  let nextPage = true;
-  while (nextPage === true) {
-    searchAnime(name).then((info) => {
-      if (info.hasNextPage === true) {
-        setPage(info.currentPage);
-      } else {
-        nextPage = false;
-      }
-    });
-  }
-}
+// async function getPageResults(name) {
+//   let nextPage = true;
+//   while (nextPage === true) {
+//     searchAnime(name).then((info) => {
+//       if (info.hasNextPage === true) {
+//         setPage(info.currentPage);
+//       } else {
+//         nextPage = false;
+//       }
+//     });
+//   }
+// }
 
 /* 
   
