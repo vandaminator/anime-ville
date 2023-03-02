@@ -1,11 +1,23 @@
 // options is used with the fetch of each function
 
+const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
+
+/*
+
+    THE CONSTANTS HERE ARE FOR RELEASES
+
+*/
+
+const RELEASES_DISPLAY = document.querySelector(".release");
+const RELEASES_CONTAINER = document.querySelector(".new-anime");
+const NEW_PAGE_NUMBER = document.querySelector("#new-page-number");
+const MORE_RELEASE_BTN = document.querySelector("#more-release-btn")
+
 /*
 
     THE CONSTANTS HERE ARE FOR SEARCHING ANIME DISPLAY
 
 */
-const DISPLAY_ELEMENTS = document.querySelectorAll(".display");
 
 // to get the input in the search box
 const SEARCH_BAR = document.querySelector("#searchbar");
@@ -14,8 +26,8 @@ const SEARCH_BTN = document.querySelector("#search-btn");
 // used to display results
 const RESULTS_CONTAINER = document.querySelector(".show-results");
 const RESULTS_DISPLAY = document.querySelector(".results");
-const PAGE_NUMBER = document.querySelector("#page-number");
-const MORE_BTN = document.querySelector("#more-search-btn");
+const SEARCH_PAGE_NUMBER = document.querySelector("#search-page-number");
+const MORE_RESULTS_BTN = document.querySelector("#more-search-btn");
 
 /*
 
@@ -51,34 +63,37 @@ async function searchNewAnime(page) {
 }
 
 async function getNewAnime(page) {
+  RELEASES_CONTAINER.innerHTML = '';
+  MORE_RELEASE_BTN.disabled = false
+  NEW_PAGE_NUMBER.value = "1";
   searchNewAnime(page)
     .then(info => setNew(info))
     .catch(err => console.error(err));
 }
 
 function showMoreNew() {
-  let page = parseInt(PAGE_NUMBER.value);
-  PAGE_NUMBER.value = (page + 1).toString();
+  let page = parseInt(NEW_PAGE_NUMBER.value);
+  NEW_PAGE_NUMBER.value = (page + 1).toString();
   page += 1
   searchNewAnime(page) // getting data to add
-    .then((info) => setResults(info)) // using data
+    .then((info) => setNew(info)) // using data
     .catch((err) => console.error(err));
 }
 
 async function setNew(data) {
   const lastPage = !(data.hasNextPage)
   if (lastPage)  {
-    MORE_BTN.disabled = true;
+    MORE_RELEASE_BTN.disabled = true;
   }
   const results = data.results;
   const numData = results.length;
   let item = 0;
   for (item; item < numData; item++) {
-    const anime = data.results[item];
-    const animeTitle = anime.title;
-    const animeImage = anime.image;
-    const animeId = anime.id;
-    addResult(animeTitle, animeImage, animeId);
+    const episode = results[item];
+    const animeTitle = episode.title;
+    const animeImage = episode.image;
+    const episodeNumber = episode.episodeNumber;
+    addNew(animeTitle, animeImage, animeId);
   }
 }
 
@@ -132,8 +147,8 @@ see examples_output2.json
 // getting and using data
 async function getAnime(page) {
   RESULTS_CONTAINER.innerHTML = "";
-  MORE_BTN.disabled = false
-  PAGE_NUMBER.value = "1";
+  MORE_RESULTS_BTN.disabled = false
+  SEARCH_PAGE_NUMBER.value = "1";
   showScreen("results");
   const input = SEARCH_BAR.value;
   searchAnime(input, page) // getting data
@@ -147,8 +162,8 @@ function searchBtn() {
 
 function showMore() {
   const input = SEARCH_BAR.value;
-  let page = parseInt(PAGE_NUMBER.value);
-  PAGE_NUMBER.value = (page + 1).toString();
+  let page = parseInt(SEARCH_PAGE_NUMBER.value);
+  SEARCH_PAGE_NUMBER.value = (page + 1).toString();
   page += 1
   searchAnime(input, page) // getting data to add
     .then((info) => setResults(info)) // using data
@@ -167,13 +182,13 @@ function showMore() {
 async function setResults(data) {
   const lastPage = !(data.hasNextPage)
   if (lastPage)  {
-    MORE_BTN.disabled = true;
+    MORE_RESULTS_BTN.disabled = true;
   }
   const results = data.results;
   const numData = results.length;
   let item = 0;
   for (item; item < numData; item++) {
-    const anime = data.results[item];
+    const anime = results[item];
     const animeTitle = anime.title;
     const animeImage = anime.image;
     const animeId = anime.id;

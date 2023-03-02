@@ -33,12 +33,14 @@
         <h2>New tings</h2>
         <div class="new-anime"></div>
         <button id="more-release-btn">more</button>
+        <!-- keeps value of current page to use when to show next page -->
+        <input type="hidden" name="page-number" id="new-page-number" />
       </section>
       <section class="results display hide">
         <h2 class="results-title">Found this fam</h2>
         <div class="show-results"></div>
         <!-- keeps value of current page to use when to show next page -->
-        <input type="hidden" name="page-number" id="page-number" />
+        <input type="hidden" name="page-number" id="search-page-number" />
         <button onclick="showMore()" id="more-search-btn">more</button>
       </section>
       <section class="details display hide">
