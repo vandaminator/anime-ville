@@ -18,7 +18,9 @@
   </head>
   <body onkeydown="check(event)">
     <nav>
-      <h1>AnimeVile</h1>
+      <div id="home">
+        <h1>AnimeVile</h1>
+      </div>
       <div class="search">
         <input type="text" id="searchbar" />
         <button class="get" id="search-btn" onclick="searchBtn()">
@@ -27,12 +29,17 @@
       </div>
     </nav>
     <main>
-      <section class="results display">
-        <h2 class="results-title">Found thi</h2>
+      <section class="release display">
+        <h2>New tings</h2>
+        <div class="new-anime"></div>
+        <button id="more-release-btn">more</button>
+      </section>
+      <section class="results display hide">
+        <h2 class="results-title">Found this fam</h2>
         <div class="show-results"></div>
         <!-- keeps value of current page to use when to show next page -->
-        <input type="hidden" name="page-number" id="page-number" >
-        <button id="more-btn">more</button>
+        <input type="hidden" name="page-number" id="page-number" />
+        <button onclick="showMore()" id="more-search-btn">more</button>
       </section>
       <section class="details display hide">
         <h2>info</h2>

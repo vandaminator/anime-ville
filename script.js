@@ -15,6 +15,7 @@ const SEARCH_BTN = document.querySelector("#search-btn");
 const RESULTS_CONTAINER = document.querySelector(".show-results");
 const RESULTS_DISPLAY = document.querySelector(".results");
 const PAGE_NUMBER = document.querySelector("#page-number");
+const MORE_BTN = document.querySelector("#more-search-btn");
 
 /*
 
@@ -29,6 +30,69 @@ const INFORMATION = document.querySelector(".information");
 const SYNOPSIS = document.querySelector(".synopsis");
 const GENRES = document.querySelector(".genres");
 const EPISODES = document.querySelector(".episodes");
+
+/*
+
+
+
+
+
+
+
+
+
+    THESE FUNCTIONS ARE FOR GETTING NEW ANIME
+
+*/
+
+async function searchNewAnime(page) {
+  const response =  await fetch(`https://api.consumet.org/anime/gogoanime/recent-episodes?page=${page}`);
+  return response.json();
+}
+
+async function getNewAnime(page) {
+  searchNewAnime(page)
+    .then(info => setNew(info))
+    .catch(err => console.error(err));
+}
+
+function showMoreNew() {
+  let page = parseInt(PAGE_NUMBER.value);
+  PAGE_NUMBER.value = (page + 1).toString();
+  page += 1
+  searchNewAnime(page) // getting data to add
+    .then((info) => setResults(info)) // using data
+    .catch((err) => console.error(err));
+}
+
+async function setNew(data) {
+  const lastPage = !(data.hasNextPage)
+  if (lastPage)  {
+    MORE_BTN.disabled = true;
+  }
+  const results = data.results;
+  const numData = results.length;
+  let item = 0;
+  for (item; item < numData; item++) {
+    const anime = data.results[item];
+    const animeTitle = anime.title;
+    const animeImage = anime.image;
+    const animeId = anime.id;
+    addResult(animeTitle, animeImage, animeId);
+  }
+}
+
+async function addNew(title, img_src, id) {
+  const resultItem = document.createElement("div");
+  resultItem.setAttribute("onclick", `showDetails('${id}')`);
+  const htmlText = `
+  <h4>${title}</h4>
+  <img src="${img_src}" alt='image' width="150">
+  `;
+  resultItem.innerHTML = htmlText;
+  RESULTS_CONTAINER.appendChild(resultItem);
+}
+
 
 /*
 
@@ -68,6 +132,7 @@ see examples_output2.json
 // getting and using data
 async function getAnime(page) {
   RESULTS_CONTAINER.innerHTML = "";
+  MORE_BTN.disabled = false
   PAGE_NUMBER.value = "1";
   showScreen("results");
   const input = SEARCH_BAR.value;
@@ -82,24 +147,14 @@ function searchBtn() {
 
 function showMore() {
   const input = SEARCH_BAR.value;
-  const page = parseInt(PAGE_NUMBER.value);
+  let page = parseInt(PAGE_NUMBER.value);
   PAGE_NUMBER.value = (page + 1).toString();
+  page += 1
   searchAnime(input, page) // getting data to add
     .then((info) => setResults(info)) // using data
     .catch((err) => console.error(err));
 }
 
-async function moreResults(info) {
-  const results = data.results;
-  const numData = results.length;
-  let item = 0;
-  for (item; item < numData; item++) {
-    const anime = data.results[item];
-    const animeTitle = anime.title;
-    const animeImage = anime.image;
-    const animeId = anime.id;
-  }
-}
 
 /*
 
@@ -110,6 +165,10 @@ async function moreResults(info) {
 
 */
 async function setResults(data) {
+  const lastPage = !(data.hasNextPage)
+  if (lastPage)  {
+    MORE_BTN.disabled = true;
+  }
   const results = data.results;
   const numData = results.length;
   let item = 0;
