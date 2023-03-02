@@ -90,23 +90,33 @@ async function setNew(data) {
   let item = 0;
   for (item; item < numData; item++) {
     const episode = results[item];
-    const animeTitle = episode.title;
-    const animeImage = episode.image;
+    const episodeTitle = episode.title;
+    const episodeImage = episode.image;
     const episodeNumber = episode.episodeNumber;
-    addNew(animeTitle, animeImage, animeId);
+    const episodeUrl = episode.url;
+    addNew(episodeTitle, episodeImage, episodeUrl, episodeNumber);
   }
 }
 
-async function addNew(title, img_src, id) {
-  const resultItem = document.createElement("div");
-  resultItem.setAttribute("onclick", `showDetails('${id}')`);
+async function addNew(title, img_src, url, number) {
+  const releaseItem = document.createElement("div");
   const htmlText = `
-  <h4>${title}</h4>
+  <a href="${url}">
+    <h4>${title}-${number}</h4>
+  </a>
   <img src="${img_src}" alt='image' width="150">
+  
   `;
-  resultItem.innerHTML = htmlText;
-  RESULTS_CONTAINER.appendChild(resultItem);
+  releaseItem.innerHTML = htmlText;
+  RELEASES_CONTAINER.appendChild(releaseItem);
 }
+
+function showNewStuff() {
+  showScreen('release');
+  getNewAnime(1)
+}
+
+getNewAnime(1)
 
 
 /*
